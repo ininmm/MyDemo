@@ -1,7 +1,9 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.XmlListModel 2.11
 import "QML"
 import "./js/ListViewClickListener.js" as Logic
+import "./js/DataFilter.js" as DataFilter
 
 
 ApplicationWindow {
@@ -37,8 +39,8 @@ ApplicationWindow {
 
             ListView {
                 width: parent.width
-                model: listModel
-                delegate: listDelegate
+                model: weatherModel
+                delegate: xmlDelegate
             }
     }
 
@@ -105,6 +107,63 @@ ApplicationWindow {
                     description: "Mock"
                 }
             ]
+        }
+    }
+
+    XmlListModel {
+         id: weatherModel
+         source: "https://www.cwb.gov.tw/rss/forecast/36_08.xml"
+         query: "/rss/channel/item[2]"
+         XmlRole { name: "pubDate"; query: "pubDate/string()" }
+         XmlRole { name: "title"; query: "title/string()" }
+         XmlRole { name: "link"; query: "link/string()" }
+         XmlRole { name: "description"; query: "description/string()" }
+    }
+
+    Component {
+        id: xmlDelegate
+        Item {
+            width: 200
+            height: 50
+            Row {
+                id: rowPub
+                spacing: 5
+                Text {
+                    id: pubDateField
+                    text: pubDate
+                }
+            }
+            Row {
+                id: rowTitle
+                anchors.top: rowPub.bottom
+                spacing: 5
+                Text {
+                    id: titleField
+                    text: title
+                }
+            }
+            Row {
+                id: rowLink
+                anchors.top: rowTitle.bottom
+                spacing: 5
+                Text {
+                    id: linkField
+                    text: link
+                }
+            }
+            Row {
+                id: rowDesc
+                anchors.top: rowLink.bottom
+                spacing: 5
+                Text {
+                    id: descriptionField
+                    text: {
+                        var data = description.split("<BR>")
+                        console.log(data[1])
+                        data[1]
+                    }
+                }
+            }
         }
     }
 }

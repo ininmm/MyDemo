@@ -4,5 +4,6 @@
         <file>qtquickcontrols2.conf</file>
         <file>QML/TextView.qml</file>
         <file>js/ListViewClickListener.js</file>
+        <file>js/DataFilter.js</file>
     </qresource>
 </RCC>
