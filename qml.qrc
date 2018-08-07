@@ -5,5 +5,7 @@
         <file>QML/TextView.qml</file>
         <file>js/ListViewClickListener.js</file>
         <file>js/DataFilter.js</file>
+        <file>QML/XmlListComponent.qml</file>
+        <file>QML/XmlWeatherModel.qml</file>
     </qresource>
 </RCC>

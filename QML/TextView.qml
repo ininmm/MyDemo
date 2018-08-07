@@ -4,12 +4,12 @@ Rectangle {
     color: "#127CC1"
     Text {
         id: text1
-        width: 200
-        height: 100
-        color: "#ffffff"
-        text: qsTr("Hello World!")
+        color: "gray"
+        text: qsTr("MyDemo DailyWord")
         font.pixelSize: 20
         anchors.fill: parent
+        anchors.margins: 10
+        wrapMode: Text.WordWrap
     }
 }
 
