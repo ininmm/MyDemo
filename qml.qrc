@@ -2,10 +2,10 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>QML/TextView.qml</file>
         <file>js/ListViewClickListener.js</file>
-        <file>js/DataFilter.js</file>
-        <file>QML/XmlListComponent.qml</file>
         <file>QML/XmlWeatherModel.qml</file>
+        <file>js/DataStorage.js</file>
+        <file>js/DemoDatabase.js</file>
+        <file>js/Utils.js</file>
     </qresource>
 </RCC>
