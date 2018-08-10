@@ -12,28 +12,36 @@ import "./js/Utils.js" as DataUtil
 ApplicationWindow {
     id: applicationWindow
     visible: true
+    width: 640
+    height: 480
+    title: qsTr("MyDemo")
     color: "#B3E5FC"
 
     Component.onCompleted: {
         Storage.init()
     }
 
-    Rectangle {
-        id: titleView
-        color: "#127CC1"
+    Text {
+        id: dailyText
+        width: applicationWindow.width
+        color: "gray"
+        text: "讀取中..."
         anchors {
             top: applicationWindow.contentItem.top
-            topMargin: 20
+            margins: 20
         }
-
-        Text {
-            id: dailyText
-            color: "gray"
-            text: qsTr("MyDemo DailyWord")
-            font.pixelSize: 20
-            anchors.fill: parent
-            anchors.margins: 10
-            wrapMode: Text.WordWrap
+        padding: 10
+        font.pixelSize: 20
+        wrapMode: Text.WordWrap
+        Component.onCompleted: {
+            DataUtil.request(function (o) {
+                var data = DataUtil.filterTags(o.responseText,
+                                      "<article class=\"dphs\">",
+                                      "<\/article>")
+                data = DataUtil.replaceData(data)
+                console.log(data)
+                dailyText.text = data
+            })
         }
     }
 
@@ -41,8 +49,8 @@ ApplicationWindow {
         width: 360
         height: 480
         y: 8
-        anchors.top: titleView.bottom
-        anchors.topMargin: 160
+        anchors.top: dailyText.bottom
+        anchors.topMargin: 20
         anchors.horizontalCenter: applicationWindow.contentItem.horizontalCenter
 
         ListView {
@@ -68,17 +76,22 @@ ApplicationWindow {
         Item {
             width: 200
             height: 50
+
             Row {
                 id: rowdesc
                 spacing: 5
                 anchors.centerIn: parent
+
                 Text {
                     id: descriptionField
                     text: modelData
+
+                    horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: 14
                     wrapMode: Text.Wrap
                 }
             }
+
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
@@ -90,10 +103,3 @@ ApplicationWindow {
         }
     }
 }
-
-
-
-/*##^## Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
- ##^##*/
