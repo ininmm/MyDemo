@@ -52,7 +52,7 @@ function request(callback) {
   * @param data 原始資料
   * @param startTag 標籤頭
   * @param endTag 標籤尾
-  * return 標籤內的資料
+  * @return 標籤內的資料
   */
 function filterTags(data, startTag, endTag) {
     var splitHead = data.split(startTag)[1]
